@@ -1,0 +1,612 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "API Katalog Perpustakaan",
+    "version": "1.0.0",
+    "description": "Praktikum lokal tanpa login. Data memori hilang saat restart. POST dan PUT wajib judul serta tersedia, tanpa field tambahan. Kode error: INVALID_ID, INVALID_QUERY, INVALID_BOOK, INVALID_JSON, BOOK_NOT_FOUND, PAYLOAD_TOO_LARGE, UNSUPPORTED_MEDIA_TYPE, ROUTE_NOT_FOUND, BAD_REQUEST, INTERNAL_ERROR."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:3200",
+      "description": "Server Lokal Pengembangan"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Buku",
+      "description": "Operasi katalog buku perpustakaan kampus."
+    }
+  ],
+  "paths": {
+    "/api/buku": {
+      "get": {
+        "tags": [
+          "Buku"
+        ],
+        "summary": "Membaca atau mencari daftar buku",
+        "description": "Mengambil seluruh daftar buku dalam katalog atau mencari buku berdasarkan substring judul.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Satu teks pencarian judul, maksimal 80 unit UTF-16; kosong menampilkan semua buku.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "kotlin"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Daftar buku berhasil diambil; array boleh kosong jika tidak ada hasil.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DaftarResponse"
+                },
+                "example": {
+                  "success": true,
+                  "data": [
+                    {
+                      "id": 1,
+                      "judul": "Dasar Pemrograman Kotlin",
+                      "tersedia": true
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Permintaan tidak valid, query salah, ID tidak valid, atau body JSON melanggar aturan kontrak.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "INVALID_BOOK",
+                    "message": "Isi hanya judul 1-120 karakter dan tersedia boolean."
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Terjadi kegagalan internal pada server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "INTERNAL_ERROR",
+                    "message": "Terjadi kesalahan pada server."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Buku"
+        ],
+        "summary": "Menambahkan buku baru",
+        "description": "Menambahkan entri buku baru ke katalog dengan ID yang digenerate oleh server.",
+        "requestBody": {
+          "required": true,
+          "description": "Data buku baru atau pengganti (judul 1-120 karakter dan tersedia boolean)",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BukuInput"
+              },
+              "example": {
+                "judul": "Belajar API dengan Express",
+                "tersedia": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Buku berhasil dibuat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BukuResponse"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "id": 3,
+                    "judul": "Belajar API dengan Express",
+                    "tersedia": true
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Location": {
+                "description": "URI resource buku baru yang berhasil dibuat.",
+                "schema": {
+                  "type": "string"
+                },
+                "example": "/api/buku/3"
+              }
+            }
+          },
+          "400": {
+            "description": "Permintaan tidak valid, query salah, ID tidak valid, atau body JSON melanggar aturan kontrak.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "INVALID_BOOK",
+                    "message": "Isi hanya judul 1-120 karakter dan tersedia boolean."
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Body JSON yang dikirim melebihi batas parser 10kb.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "PAYLOAD_TOO_LARGE",
+                    "message": "Body melebihi batas 10kb."
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Format media tidak didukung. Wajib gunakan Content-Type application/json.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "UNSUPPORTED_MEDIA_TYPE",
+                    "message": "Gunakan Content-Type application/json."
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Terjadi kegagalan internal pada server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "INTERNAL_ERROR",
+                    "message": "Terjadi kesalahan pada server."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/buku/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "Digit desimal positif tanpa nol di depan (contoh: 1, 2, 3); nilai <= 9007199254740991.",
+          "schema": {
+            "type": "string",
+            "pattern": "^[1-9][0-9]*$"
+          },
+          "example": "1"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Buku"
+        ],
+        "summary": "Membaca satu buku berdasarkan ID",
+        "description": "Mengambil detail data buku berdasarkan parameter path ID positif.",
+        "responses": {
+          "200": {
+            "description": "Buku ditemukan dan data dikembalikan.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BukuResponse"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "id": 1,
+                    "judul": "Dasar Pemrograman Kotlin",
+                    "tersedia": true
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Permintaan tidak valid, query salah, ID tidak valid, atau body JSON melanggar aturan kontrak.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "INVALID_BOOK",
+                    "message": "Isi hanya judul 1-120 karakter dan tersedia boolean."
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Buku atau rute yang diminta tidak ditemukan di server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "BOOK_NOT_FOUND",
+                    "message": "Buku tidak ditemukan."
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Terjadi kegagalan internal pada server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "INTERNAL_ERROR",
+                    "message": "Terjadi kesalahan pada server."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Buku"
+        ],
+        "summary": "Mengganti seluruh field buku",
+        "description": "Mengganti seluruh data buku yang ada pada ID target. Target harus sudah ada. Field judul dan tersedia wajib.",
+        "requestBody": {
+          "required": true,
+          "description": "Data buku baru atau pengganti (judul 1-120 karakter dan tersedia boolean)",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BukuInput"
+              },
+              "example": {
+                "judul": "Belajar API dengan Express",
+                "tersedia": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Buku berhasil diperbarui.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BukuResponse"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "id": 1,
+                    "judul": "Dasar Pemrograman Kotlin (Edisi Revisi)",
+                    "tersedia": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Permintaan tidak valid, query salah, ID tidak valid, atau body JSON melanggar aturan kontrak.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "INVALID_BOOK",
+                    "message": "Isi hanya judul 1-120 karakter dan tersedia boolean."
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Buku atau rute yang diminta tidak ditemukan di server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "BOOK_NOT_FOUND",
+                    "message": "Buku tidak ditemukan."
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Body JSON yang dikirim melebihi batas parser 10kb.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "PAYLOAD_TOO_LARGE",
+                    "message": "Body melebihi batas 10kb."
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Format media tidak didukung. Wajib gunakan Content-Type application/json.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "UNSUPPORTED_MEDIA_TYPE",
+                    "message": "Gunakan Content-Type application/json."
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Terjadi kegagalan internal pada server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "INTERNAL_ERROR",
+                    "message": "Terjadi kesalahan pada server."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Buku"
+        ],
+        "summary": "Menghapus buku berdasarkan ID",
+        "description": "Menghapus buku dari katalog. Menghasilkan respons 204 No Content tanpa body jika berhasil.",
+        "responses": {
+          "204": {
+            "description": "Buku berhasil dihapus; tidak memiliki body respons."
+          },
+          "400": {
+            "description": "Permintaan tidak valid, query salah, ID tidak valid, atau body JSON melanggar aturan kontrak.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "INVALID_BOOK",
+                    "message": "Isi hanya judul 1-120 karakter dan tersedia boolean."
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Buku atau rute yang diminta tidak ditemukan di server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "BOOK_NOT_FOUND",
+                    "message": "Buku tidak ditemukan."
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Terjadi kegagalan internal pada server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "success": false,
+                  "error": {
+                    "code": "INTERNAL_ERROR",
+                    "message": "Terjadi kesalahan pada server."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BukuInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "judul",
+          "tersedia"
+        ],
+        "properties": {
+          "judul": {
+            "type": "string",
+            "description": "Setelah trim, panjang 1-120 unit UTF-16."
+          },
+          "tersedia": {
+            "type": "boolean",
+            "description": "Status ketersediaan buku di katalog (true atau false)."
+          }
+        }
+      },
+      "Buku": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "judul",
+          "tersedia"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991,
+            "description": "ID buku integer positif hasil generate server."
+          },
+          "judul": {
+            "type": "string",
+            "description": "Setelah trim, panjang 1-120 unit UTF-16."
+          },
+          "tersedia": {
+            "type": "boolean",
+            "description": "Status ketersediaan buku di katalog (true atau false)."
+          }
+        }
+      },
+      "BukuResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "const": true,
+            "description": "Menandakan operasi berhasil."
+          },
+          "data": {
+            "$ref": "#/components/schemas/Buku"
+          }
+        }
+      },
+      "DaftarResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "data"
+        ],
+        "properties": {
+          "success": {
+            "const": true,
+            "description": "Menandakan operasi berhasil."
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Buku"
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": [
+          "success",
+          "error"
+        ],
+        "properties": {
+          "success": {
+            "const": false,
+            "description": "Menandakan operasi gagal."
+          },
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Kode kesalahan standar aplikasi."
+              },
+              "message": {
+                "type": "string",
+                "description": "Pesan kesalahan ramah pengguna."
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

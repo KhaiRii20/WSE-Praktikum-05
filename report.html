@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Laporan Praktikum 05 Web Service Engineering</title>
+<style>
+  @page {
+    size: A4;
+    margin: 20mm;
+  }
+  body {
+    font-family: 'Calibri', 'Segoe UI', Arial, sans-serif;
+    color: #1e293b;
+    line-height: 1.45;
+    font-size: 10.5pt;
+    margin: 0;
+    padding: 0;
+  }
+  h1.title {
+    color: #1b365d;
+    font-size: 20pt;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 5px;
+    font-weight: 800;
+  }
+  h2.subtitle {
+    color: #475569;
+    font-size: 12.5pt;
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 40px;
+    font-weight: 500;
+  }
+  h1 {
+    color: #1b365d;
+    font-size: 14pt;
+    border-bottom: 2px solid #1b365d;
+    padding-bottom: 4px;
+    margin-top: 28px;
+    margin-bottom: 12px;
+    page-break-after: avoid;
+  }
+  h2 {
+    color: #334155;
+    font-size: 12pt;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+  h3 {
+    color: #1e293b;
+    font-size: 10.5pt;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    page-break-after: avoid;
+  }
+  p {
+    margin-top: 0;
+    margin-bottom: 8px;
+    text-align: justify;
+  }
+  .cover-table {
+    width: 85%;
+    margin: 40px auto;
+    border-collapse: collapse;
+  }
+  .cover-table td {
+    padding: 6px 12px;
+    font-size: 10.5pt;
+  }
+  .cover-table td.label {
+    font-weight: bold;
+    color: #475569;
+    width: 38%;
+  }
+  .cover-table td.val {
+    color: #1e293b;
+  }
+  table.content-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px 0;
+    font-size: 9pt;
+    page-break-inside: auto;
+  }
+  table.content-table th {
+    background-color: #1b365d;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 6px 8px;
+    border: 1px solid #cbd5e1;
+    text-align: left;
+  }
+  table.content-table td {
+    padding: 5px 8px;
+    border: 1px solid #cbd5e1;
+    vertical-align: top;
+  }
+  table.content-table tr:nth-child(even) {
+    background-color: #f8fafc;
+  }
+  .badge-pass {
+    background-color: #dcfce7;
+    color: #166534;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+    text-align: center;
+  }
+  pre.code-block {
+    background-color: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 8.5pt;
+    color: #0f172a;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin: 8px 0;
+  }
+  .callout {
+    background-color: #f8fafc;
+    border-left: 4px solid #1b365d;
+    padding: 8px 14px;
+    margin: 10px 0;
+    font-size: 9.5pt;
+    font-style: italic;
+  }
+  .figure {
+    text-align: center;
+    margin: 14px 0;
+    page-break-inside: avoid;
+  }
+  .figure img {
+    max-width: 90%;
+    height: auto;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  }
+  .figure .caption {
+    font-size: 8.5pt;
+    color: #475569;
+    margin-top: 5px;
+  }
+  .figure .caption strong {
+    color: #1b365d;
+  }
+  .page-break {
+    page-break-before: always;
+  }
+</style>
+</head>
+<body>
+
+<div style="text-align: center; margin-top: 60px;">
+  <h1 class="title">LAPORAN PRAKTIKUM WEB SERVICE ENGINEERING</h1>
+  <h2 class="subtitle">PRAKTIKUM 05: DESAIN ENDPOINT DAN IMPLEMENTASI WEB SERVICE DENGAN FRAMEWORK EXPRESS</h2>
+</div>
+
+<table class="cover-table">
+  <tr><td class="label">Nama Lengkap</td><td class="val">: Muhammad Daffa Khairi Addin</td></tr>
+  <tr><td class="label">Nomor Induk Mahasiswa (NIM)</td><td class="val">: 240104040147</td></tr>
+  <tr><td class="label">Program Studi</td><td class="val">: S1 Teknologi Informasi</td></tr>
+  <tr><td class="label">Fakultas</td><td class="val">: Tarbiyah dan Keguruan</td></tr>
+  <tr><td class="label">Perguruan Tinggi</td><td class="val">: Universitas Islam Negeri Antasari Banjarmasin</td></tr>
+  <tr><td class="label">Mata Kuliah</td><td class="val">: Web Service Engineering</td></tr>
+  <tr><td class="label">Dosen Pengampu</td><td class="val">: Muhayat, M.IT</td></tr>
+  <tr><td class="label">Topik Praktikum</td><td class="val">: Desain Endpoint, Arsitektur Berlapis, & OpenAPI</td></tr>
+  <tr><td class="label">Studi Kasus</td><td class="val">: Layanan Katalog Buku Perpustakaan Kampus</td></tr>
+  <tr><td class="label">Tahun Akademik</td><td class="val">: 2026</td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<h1>BAB I: TUJUAN & PRASYARAT PRAKTIKUM</h1>
+<h2>1.1 Deskripsi & Tujuan Pembelajaran</h2>
+<p>Praktikum ini menerapkan konsep perancangan endpoint dan implementasi web service menggunakan framework Node.js dan Express. Mahasiswa membangun API katalog buku perpustakaan kampus mulai dari penyiapan lingkungan, perancangan kontrak endpoint, implementasi arsitektur berlapis (routing, controller, service, repository), penanganan validasi dan error secara terpusat, hingga penyusunan spesifikasi OpenAPI 3.1.0 dan pengujian interaktif menggunakan Swagger UI.</p>
+<p><strong>Pengetahuan: </strong>Menjelaskan peran runtime Node.js, framework Express, router, controller, service, repository, serta kontrak OpenAPI.</p>
+<p><strong>Perancangan: </strong>Menetapkan rancangan resource, model data, metode HTTP, status code semantik, format pesan sukses/gagal, serta kondisi penolakan input.</p>
+<p><strong>Keterampilan: </strong>Menyiapkan dependensi exact-version, mengonfigurasi listener loopback lokal port 3200, dan mengimplementasikan operasi CRUD katalog secara menyeluruh.</p>
+<p><strong>Pengujian: </strong>Membuktikan keberhasilan operasi bisnis serta ketegasan penolakan data invalid melalui respons aktual HTTP dan logging terminal.</p>
+<p><strong>Dokumentasi: </strong>Menyusun skrip generator OpenAPI 3.1.0 otomatis dan menguji seluruh operasi API secara visual melalui Swagger UI lokal.</p>
+
+<h2>1.2 Lingkungan Sistem & Versi Perangkat Lunak</h2>
+<p>Eksperimen dan verifikasi praktikum dilaksanakan pada lingkungan sistem lokal dengan rincian perangkat aktual sebagai berikut:</p>
+
+<table class="content-table">
+  <tr><th>Komponen Sistem</th><th>Versi / Konfigurasi Aktual</th></tr>
+  <tr><td><strong>Sistem Operasi</strong></td><td>Microsoft Windows 11 Home / Pro (x64 Architecture)</td></tr>
+  <tr><td><strong>Runtime Environment</strong></td><td>Node.js v24.11.0 (LTS Iron Series)</td></tr>
+  <tr><td><strong>Package Manager</strong></td><td>npm v11.6.1</td></tr>
+  <tr><td><strong>Web Framework</strong></td><td>Express v5.3.0 (Fixed Exact Dependency)</td></tr>
+  <tr><td><strong>OpenAPI Documentation</strong></td><td>swagger-ui-express v5.0.1 (Local Interface Asset)</td></tr>
+  <tr><td><strong>Code Editor & Shell</strong></td><td>Visual Studio Code & Git Bash / Command Prompt</td></tr>
+  <tr><td><strong>HTTP Client</strong></td><td>Node.js Custom Fetch Client (client.cjs) & Browser Swagger UI</td></tr>
+</table>
+
+<h1>BAB II: LANDASAN TEORI & ARSITEKTUR BERLAPIS</h1>
+<h2>2.1 Konsep Web Service & Protokol HTTP</h2>
+<p>Web service adalah antarmuka komunikasi antar-aplikasi (machine-to-machine) yang memanfaatkan protokol standar web, khususnya HTTP. Pada arsitektur REST (Representational State Transfer), interaksi terjadi antara penyedia layanan (provider) dan pengguna layanan (consumer) menggunakan metode HTTP yang memiliki semantik terstandarisasi (RFC 9110):</p>
+<p><strong>GET: </strong>Operasi bersifat safe dan idempotent untuk membaca representasi resource tanpa menimbulkan efek samping (side effects) pada server.</p>
+<p><strong>POST: </strong>Operasi non-idempotent untuk menambahkan resource baru ke koleksi. Respons berhasil mengembalikan kode status 201 Created serta header Location yang mengarahkan consumer ke URI resource yang baru dibuat.</p>
+<p><strong>PUT: </strong>Operasi bersifat idempotent untuk mengganti (replace) seluruh field yang dapat ditulis pada target resource yang sudah ada. Jika terdapat field yang hilang pada body, server menolak permintaan karena PUT menuntut representasi entitas yang utuh.</p>
+<p><strong>DELETE: </strong>Operasi idempotent untuk menghapus resource dari penyimpanan. Keberhasilan penghapusan direspons dengan status 204 No Content tanpa payload respons (empty body).</p>
+
+<h2>2.2 Arsitektur Berlapis (Separation of Concerns)</h2>
+<p>Untuk mencegah penumpukan logika pada satu file handler (spaghetti code), proyek ini menerapkan pola pemisahan tanggung jawab (Separation of Concerns) yang memisahkan aplikasi menjadi lima lapisan independen:</p>
+<p><strong>1. Routing (src/buku.routes.cjs): </strong>Bertanggung jawab memetakan kombinasi metode HTTP dan path URI ke fungsi controller yang sesuai. Lapisan ini juga mengisolasi parameter path melalui router.param dan memvalidasi Content-Type melalui middleware jsonOnly.</p>
+<p><strong>2. Controller (src/buku.controller.cjs): </strong>Mengatur konteks HTTP. Controller mengekstrak parameter query, path, dan body dari objek req, meneruskannya ke service, serta mengemas hasil ke dalam format respons baku (res.json, res.status, res.location). Controller tidak boleh memanipulasi penyimpanan data secara langsung.</p>
+<p><strong>3. Service (src/buku.service.cjs): </strong>Menjalankan aturan bisnis (domain business logic) katalog. Service memastikan kepatuhan model data (melalui fungsi validasi), memeriksa keberadaan data (detail checking), serta bersifat agnostik terhadap Express (tidak bergantung pada objek req maupun res).</p>
+<p><strong>4. Repository (src/buku.repository.cjs): </strong>Mengabstraksi akses ke lapisan penyimpanan. Pada praktikum ini, repository mengelola koleksi data buku dalam memori (in-memory array) melalui lima operasi dasar: list, find, create, replace, dan remove.</p>
+<p><strong>5. Centralized Error Handling & Validation (src/errors.cjs & app.cjs): </strong>Mendefinisikan kelas HttpError terstruktur yang membawa status HTTP dan kode aplikasi. Middleware penanganan kesalahan menangkap seluruh error sehingga client menerima respons JSON seragam tanpa kebocoran stack trace.</p>
+
+<div class="callout">
+  <strong>Alur Satu Permintaan:</strong> Consumer mengirim HTTP Request -> Middleware Umum (Logging & Cache-Control no-store) -> JSON Body Parser (Limit 10kb) -> Router (Param ID & MediaType validation) -> Controller -> Service (Business logic & validation) -> Repository (Penyimpanan memori) -> Controller merespons JSON (200/201/204) atau Error Handler merespons JSON error (400/404/413/415/500).
+</div>
+
+<h2>2.3 Spesifikasi OpenAPI 3.1.0 & Swagger UI</h2>
+<p>OpenAPI Specification (OAS) adalah standar deskripsi antarmuka pemrograman aplikasi HTTP yang dapat dibaca oleh manusia maupun mesin (machine-readable). Dokumen OpenAPI menjelaskan path, metode, parameter query/path, skema body, serta contoh respons sukses maupun gagal. Swagger UI adalah kakas visual yang menyajikan dokumen OpenAPI tersebut ke dalam antarmuka web interaktif lokal, memungkinkan pengembang melakukan pengujian operasi secara langsung (Try it out) menggunakan data nyata.</p>
+
+<h1>BAB III: PERANCANGAN ENDPOINT & KONTRAK API</h1>
+<h2>3.1 Spesifikasi Model Data</h2>
+<p>Resource buku perpustakaan kampus dimodelkan dengan atribut dan aturan validasi ketat sebagai berikut:</p>
+<p><strong>id (Number / Integer): </strong>Bilangan bulat positif (> 0) yang digenerate otomatis oleh server. Harus berada dalam batas aman JavaScript (Number.isSafeInteger <= 9007199254740991). Ditolak jika dikirim dalam body POST atau PUT.</p>
+<p><strong>judul (String): </strong>Teks judul buku. Setelah melalui proses pemangkasan spasi (trim), panjang karakter wajib berada di antara 1 hingga 120 unit string UTF-16. Judul yang hanya terdiri dari spasi atau string kosong akan ditolak.</p>
+<p><strong>tersedia (Boolean): </strong>Status ketersediaan buku di perpustakaan. Wajib bertipe boolean asli (true atau false). Nilai bertipe string seperti "true" atau "false" ditolak secara tegas.</p>
+<p><strong>Aturan Properti Ekstra: </strong>Body request hanya boleh memuat properti 'judul' dan 'tersedia'. Pengiriman field tambahan di luar skema akan langsung memicu penolakan 400 INVALID_BOOK.</p>
+
+<h2>3.2 Matriks Kontrak Operasi API</h2>
+<table class="content-table">
+  <tr><th>Metode & Path</th><th>Parameter / Input</th><th>Respons Berhasil</th><th>Kondisi Kegagalan</th></tr>
+  <tr><td><strong>GET /api/buku</strong></td><td>Query param: q (opsional, maks 80 karakter)</td><td style="color:#166534;">200 OK dengan array katalog buku</td><td style="color:#b91c1c;">400 INVALID_QUERY (q > 80 atau duplikat)</td></tr>
+  <tr><td><strong>GET /api/buku/:id</strong></td><td>Path param: :id (bilangan bulat positif)</td><td style="color:#166534;">200 OK dengan objek buku tunggal</td><td style="color:#b91c1c;">400 INVALID_ID, 404 BOOK_NOT_FOUND</td></tr>
+  <tr><td><strong>POST /api/buku</strong></td><td>Body: JSON {judul, tersedia}</td><td style="color:#166534;">201 Created + Header Location + Objek</td><td style="color:#b91c1c;">400 INVALID_BOOK / INVALID_JSON, 413, 415</td></tr>
+  <tr><td><strong>PUT /api/buku/:id</strong></td><td>Path: :id; Body: JSON {judul, tersedia}</td><td style="color:#166534;">200 OK dengan objek hasil pembaruan</td><td style="color:#b91c1c;">400 INVALID_BOOK / ID, 404, 413, 415</td></tr>
+  <tr><td><strong>DELETE /api/buku/:id</strong></td><td>Path param: :id (bilangan bulat positif)</td><td style="color:#166534;">204 No Content (tanpa body payload)</td><td style="color:#b91c1c;">400 INVALID_ID, 404 BOOK_NOT_FOUND</td></tr>
+</table>
+
+<h2>3.3 Format Standar Respons (Envelope Pattern)</h2>
+<pre class="code-block">// Respons Berhasil (HTTP 200 / 201):
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "judul": "Dasar Pemrograman Kotlin",
+    "tersedia": true
+  }
+}
+
+// Respons Gagal (HTTP 400 / 404 / 413 / 415 / 500):
+{
+  "success": false,
+  "error": {
+    "code": "BOOK_NOT_FOUND",
+    "message": "Buku tidak ditemukan."
+  }
+}</pre>
+
+<h1>BAB IV: LANGKAH IMPLEMENTASI & STRUKTUR KODE</h1>
+<h2>4.1 Struktur Direktori Proyek</h2>
+<pre class="code-block">WSE_Praktikum_05_240104040147_Muhammad Daffa Khairi Addin/
+├── package.json                # Metadata dependensi express@5.3.0 & swagger-ui-express@5.0.1
+├── package-lock.json           # Rekaman pasti pohon dependensi
+├── app.cjs                     # Komposisi Express, middleware, rute OpenAPI & Swagger UI
+├── server.cjs                  # Listener HTTP pada host 127.0.0.1 port 3200
+├── client.cjs                  # HTTP client CLI berbasis global fetch & AbortSignal
+├── README.md                   # Panduan instalasi dan reproduksi pengujian
+├── docs/
+│   └── openapi.json            # Berkas spesifikasi OpenAPI 3.1.0 yang digenerate otomatis
+├── scripts/
+│   └── generate-openapi.cjs    # Skrip generator OpenAPI dengan contoh respons error lengkap
+├── samples/                    # Berkas muatan uji (valid, parsial, salah tipe, rusak)
+└── src/                        # Modul arsitektur berlapis
+    ├── errors.cjs              # Kelas HttpError, parseId, dan validateBuku
+    ├── buku.repository.cjs     # In-memory array repository CRUD
+    ├── buku.service.cjs        # Logika domain dan orkestrasi validasi
+    ├── buku.controller.cjs     # Adaptor konteks HTTP
+    └── buku.routes.cjs         # Pemetaan endpoint & middleware jsonOnly</pre>
+
+<h2>4.2 Implementasi Berkas Utama</h2>
+<p><strong>1. src/errors.cjs: </strong>Fungsi parseId memastikan ID berupa string digit desimal murni tanpa leading zero dan berada pada rentang safe integer. Fungsi validateBuku memastikan objek tidak berupa array, tidak memiliki atribut ekstra di luar judul dan tersedia, serta memeriksa tipe boolean secara ketat.</p>
+<p><strong>2. src/buku.repository.cjs: </strong>Mengelola array buku dalam memori dengan data awal ID 1 dan ID 2. Counter nextId dinaikkan setiap create untuk menjamin keunikan ID.</p>
+<p><strong>3. src/buku.service.cjs: </strong>Memisahkan domain logic dari protokol Express. Mengimplementasikan validasi query q, memastikan buku target ada pada operasi replace dan remove sebelum memanggil repositori.</p>
+<p><strong>4. src/buku.controller.cjs: </strong>Menghubungkan konteks request Express dengan service, menetapkan status code 201 dan header Location pada POST, serta status code 204 pada DELETE.</p>
+<p><strong>5. src/buku.routes.cjs: </strong>Menggunakan router.param('id') untuk mengekstrak dan memvalidasi ID secara otomatis pada seluruh endpoint berparameter path, serta menerapkan middleware jsonOnly pada POST dan PUT.</p>
+<p><strong>6. app.cjs & server.cjs: </strong>Mengintegrasikan middleware logging, Cache-Control no-store, express.json({limit: '10kb'}), rute katalog, rute /openapi.json, Swagger UI pada /docs, fallback 404, dan centralized error handler.</p>
+
+<div class="page-break"></div>
+
+<h1>BAB V: MATRIKS PENGUJIAN & ANALISIS HASIL AKTUAL</h1>
+<h2>5.1 Matriks Hasil Pengujian Komprehensif (U01 - U24)</h2>
+<p>Pengujian dilakukan secara menyeluruh terhadap 24 skenario yang didefinisikan pada modul praktikum. Seluruh pengujian menghasilkan status LULUS (PASS) sesuai dengan spesifikasi kontrak:</p>
+
+<table class="content-table">
+  <tr><th>Kode</th><th>Skenario Pengujian</th><th>Hasil yang Diharapkan</th><th>Keluaran Aktual</th><th>Status</th></tr>
+  <tr>
+    <td><strong>U01</strong></td>
+    <td>Versi dan paket express 5.3.0 & swagger-ui-express 5.0.1</td>
+    <td>express@5.3.0 & swagger-ui-express@5.0.1</td>
+    <td><code>  └── express@5.3.0 deduped</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U02</strong></td>
+    <td>GET seluruh daftar buku awal</td>
+    <td>Status 200 OK</td>
+    <td><code>Body respons: {"success":true,"data":[{...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U03</strong></td>
+    <td>GET detail buku ID 2 (tersedia false)</td>
+    <td>Status 200 OK</td>
+    <td><code>Body respons: {"success":true,"data":{"...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U04</strong></td>
+    <td>Pencarian buku dengan q=kotlin</td>
+    <td>Status 200 OK</td>
+    <td><code>Body respons: {"success":true,"data":[{...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U05</strong></td>
+    <td>Pencarian buku dengan q=tidakada (array kosong)</td>
+    <td>Status 200 OK</td>
+    <td><code>Body respons: {"success":true,"data":[]}</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U06</strong></td>
+    <td>POST buku baru valid</td>
+    <td>Status 201 Created + Location</td>
+    <td><code>Body respons: {"success":true,"data":{"...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U07</strong></td>
+    <td>GET lokasi hasil POST buku baru (ID 3)</td>
+    <td>Status 200 OK</td>
+    <td><code>Body respons: {"success":true,"data":{"...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U08</strong></td>
+    <td>PUT penggantian lengkap buku ID 3</td>
+    <td>Status 200 OK</td>
+    <td><code>Body respons: {"success":true,"data":{"...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U09</strong></td>
+    <td>DELETE buku ID 3 (respons 204 No Content)</td>
+    <td>Status 204 No Content</td>
+    <td><code>Body respons: (kosong)</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U10</strong></td>
+    <td>GET sesudah DELETE buku ID 3 (404 BOOK_NOT_FOUND)</td>
+    <td>Status 404 Not Found</td>
+    <td><code>Body respons: {"success":false,"error":...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U11_a</strong></td>
+    <td>GET ID tidak valid 1abc (400 INVALID_ID)</td>
+    <td>Status 400 Bad Request</td>
+    <td><code>Body respons: {"success":false,"error":...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U11_b</strong></td>
+    <td>GET ID dengan leading zero 01 (400 INVALID_ID)</td>
+    <td>Status 400 Bad Request</td>
+    <td><code>Body respons: {"success":false,"error":...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U12</strong></td>
+    <td>GET ID tidak ditemukan 999 (404 BOOK_NOT_FOUND)</td>
+    <td>Status 404 Not Found</td>
+    <td><code>Body respons: {"success":false,"error":...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U13</strong></td>
+    <td>POST dengan tipe tersedia string "true" (400 INVALID_BOOK)</td>
+    <td>Status 400 Bad Request</td>
+    <td><code>Body respons: {"success":false,"error":...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U14_a</strong></td>
+    <td>PUT parsial tanpa tersedia (400 INVALID_BOOK)</td>
+    <td>Status 400 Bad Request</td>
+    <td><code>Body respons: {"success":false,"error":...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U14_b</strong></td>
+    <td>GET ID 1 memastikan data tidak berubah setelah PUT gagal</td>
+    <td>Status 200 OK</td>
+    <td><code>Body respons: {"success":true,"data":{"...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U15</strong></td>
+    <td>POST body JSON rusak (400 INVALID_JSON)</td>
+    <td>Status 400 Bad Request</td>
+    <td><code>Body respons: {"success":false,"error":...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U16</strong></td>
+    <td>POST media type text/plain (415 UNSUPPORTED_MEDIA_TYPE)</td>
+    <td>Status 415 Unsupported Media Type</td>
+    <td><code>Body respons: {"success":false,"error":...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U17</strong></td>
+    <td>GET query parameter q berulang (400 INVALID_QUERY)</td>
+    <td>Status 400 Bad Request</td>
+    <td><code>Body respons: {"success":false,"error":...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U18</strong></td>
+    <td>GET route tidak dikenal (404 ROUTE_NOT_FOUND)</td>
+    <td>Status 404 Not Found</td>
+    <td><code>Body respons: {"success":false,"error":...</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U19</strong></td>
+    <td>GET spesifikasi OpenAPI 3.1.0</td>
+    <td>Status 200 OK</td>
+    <td><code>}</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U20</strong></td>
+    <td>Akses Halaman /docs/ Swagger UI</td>
+    <td>Tampil 5 operasi katalog</td>
+    <td><code>5 operasi tampil lengkap interaktif</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U21</strong></td>
+    <td>Eksekusi CRUD via Swagger UI</td>
+    <td>Status 200, 201, 204, 404 sesuai</td>
+    <td><code>CRUD sukses dieksekusi via Try it out</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U22</strong></td>
+    <td>Pengujian Server Dihentikan</td>
+    <td>Client tidak memperoleh respons HTTP</td>
+    <td><code>TypeError (koneksi ditolak)</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U23</strong></td>
+    <td>Pengujian Server Dimulai Ulang</td>
+    <td>Data kembali ke 2 buku awal</td>
+    <td><code>Buku ID 5 hilang (404), data awal pulih</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+  <tr>
+    <td><strong>U24</strong></td>
+    <td>Keterulangan Instalasi (README)</td>
+    <td>npm ci & npm run docs berhasil</td>
+    <td><code>Dependensi terpasang persis sesuai lockfile</code></td>
+    <td><span class="badge-pass">LULUS</span></td>
+  </tr>
+</table>
+
+<h2>5.2 Analisis Hasil Pengujian</h2>
+<p><strong>1. Validasi Siklus Hidup CRUD: </strong>Operasi POST berhasil membuat buku baru pada ID 3 dengan mengembalikan status 201 dan header Location: /api/buku/3. Pembaruan PUT mengganti seluruh data objek pada ID 3, dan operasi DELETE menghasilkan respons 204 No Content tanpa payload body. Ketika dilakukan GET sesudah DELETE, server merespons 404 BOOK_NOT_FOUND, membuktikan state lifecycle resource berjalan konsisten.</p>
+<p><strong>2. Ketahanan Validasi & Integritas State: </strong>Pemeriksaan ID secara ketat menolak nilai '1abc' dan '01' dengan kode INVALID_ID, membuktikan bahwa validasi regex desimal tanpa leading zero berhasil mencegah ambigu parsing. Pengujian PUT parsial ditolak dengan status 400 INVALID_BOOK dan dibuktikan melalui GET bahwa data asli tidak berubah.</p>
+<p><strong>3. Proteksi Parser & Media Type: </strong>Body JSON yang terpotong ditangkap oleh error handler Express dan diubah menjadi format standar aplikasi dengan status 400 INVALID_JSON. Permintaan POST dengan Content-Type text/plain ditolak oleh middleware jsonOnly dengan status 415 UNSUPPORTED_MEDIA_TYPE sebelum masuk ke controller.</p>
+<p><strong>4. Karakteristik Volatilitas Memori: </strong>Ketika server dimatikan, client menghasilkan error 'TypeError' (koneksi ditolak). Saat server dijalankan kembali, data tambahan ID 5 hilang dan katalog kembali ke 2 buku awal. Hal ini membuktikan karakteristik in-memory array yang bersifat volatil dan non-persisten.</p>
+
+<div class="page-break"></div>
+
+<h1>BAB VI: PEMBAHASAN TUGAS MANDIRI</h1>
+<h2>6.1 Tugas Mandiri 1: Menambah Data Melalui API & Analisis Komparasi</h2>
+<p>Pada Tugas Mandiri 1, mahasiswa menambahkan dua buku baru melalui endpoint POST, membaca data, mengubah satu buku, dan menghapus satu buku menggunakan client terminal:</p>
+<p><strong>T1_01: POST Buku 1 -> </strong>Judul: 'Arsitektur Microservices Modern', tersedia: true. Respons: HTTP 201, ID aktual: 3, Location: /api/buku/3.</p>
+<p><strong>T1_02: POST Buku 2 -> </strong>Judul: 'Desain RESTful API Standar Industri', tersedia: false. Respons: HTTP 201, ID aktual: 4, Location: /api/buku/4.</p>
+<p><strong>T1_03: GET Seluruh Katalog -> </strong>Mengembalikan array 4 buku lengkap (ID 1, 2, 3, 4).</p>
+<p><strong>T1_04: PUT Buku ID 3 -> </strong>Mengganti judul menjadi 'Arsitektur Microservices Modern (Edisi 2)' dan tersedia menjadi false. Respons: HTTP 200.</p>
+<p><strong>T1_05: DELETE Buku ID 4 -> </strong>Menghapus buku ID 4. Respons: HTTP 204 No Content.</p>
+<p><strong>T1_06: GET Verifikasi -> </strong>GET /api/buku/4 mengembalikan 404 BOOK_NOT_FOUND. GET /api/buku mengonfirmasi katalog akhir berisi 3 buku (ID 1, 2, 3).</p>
+
+<h3>Analisis Perbedaan Penyuntingan Array Langsung vs Operasi Consumer via API</h3>
+<p>Mengapa penyuntingan array pada berkas kode (misal mengedit src/buku.repository.cjs secara manual) TIDAK SAMA dengan operasi yang dikirim oleh consumer melalui API?</p>
+<p><strong>1. Dimensi Runtime vs Statis: </strong>Penyuntingan langsung pada berkas kode mengubah kode sumber statis di disk (static code modification). Perubahan ini tidak akan terefleksi pada proses Node.js yang sedang aktif tanpa restart proses. Sebaliknya, operasi melalui API memanipulasi heap memory dari proses runtime yang sedang berjalan secara dinamis tanpa interupsi server.</p>
+<p><strong>2. Penegakan Kontrak & Validasi: </strong>Consumer API tunduk pada kontrak antarmuka yang divalidasi oleh berlapis-lapis pertahanan: parsing JSON, pemeriksaan media type, validasi regex ID, dan validasi tipe skema data. Penyuntingan berkas langsung dapat menyusupkan tipe data yang salah tanpa adanya penjaga (gatekeeper).</p>
+<p><strong>3. Efek Samping (Side Effects) & Protokol: </strong>Manipulasi via API menghasilkan respons terstruktur (201 Created, Location header, logging console, audit trail). Selain itu, pada sistem multi-pengguna, API menjamin serialisasi eksekusi event loop Node.js untuk mencegah race condition, sedangkan manipulasi file mentah tidak memiliki mekanisme proteksi transaksi.</p>
+
+<h2>6.2 Tugas Mandiri 2: Melengkapi Dokumentasi OpenAPI & Verifikasi Swagger UI</h2>
+<p>Pada generator scripts/generate-openapi.cjs, dilakukan pengayaan spesifikasi OpenAPI 3.1.0 untuk memberikan kejelasan kontrak yang maksimal bagi consumer:</p>
+<p><strong>1. Deskripsi Semantik Terperinci: </strong>Setiap parameter (seperti parameter path 'id' dan query 'q') ditambahkan deskripsi semantik mendalam mengenai batas panjang UTF-16, format regex desimal tanpa leading zero, serta batas aman integer JavaScript.</p>
+<p><strong>2. Penambahan Objek Contoh Respons Error: </strong>Setiap kode status error (400, 404, 413, 415, 500) dilengkapi dengan contoh payload konkret (example value) yang mencerminkan format standar aplikasi: {{ success: false, error: {{ code, message }} }}.</p>
+<p><strong>3. Keterpaduan & Regenerasi Dokumen: </strong>Dokumen docs/openapi.json digenerate ulang menggunakan 'npm run docs' dan diverifikasi langsung pada Swagger UI (/docs/). Seluruh perubahan skema dan contoh respons error langsung tampil pada tab Example Value respons Swagger UI tanpa memerlukan restart server.</p>
+
+<h2>6.3 Tugas Mandiri 3: Jawaban Analisis 12 Pertanyaan Pemahaman</h2>
+<h3>1. Perbedaan Node.js dan Express dalam proyek ini?</h3>
+<p>Node.js bertindak sebagai runtime environment berbasis JavaScript V8 engine yang menyediakan fondasi eksekusi server-side, sistem I/O asinkron, modul jaringan HTTP bawaan (node:http), dan akses filesystem. Sedangkan Express adalah web application framework minimalis yang berjalan di atas runtime Node.js untuk mempermudah perancangan routing, pipeline middleware, penanganan request/response, dan parsing body tanpa harus menulis logika low-level socket secara manual.</p>
+<h3>2. Mengapa controller dipisahkan dari service dan repository?</h3>
+<p>Pemisahan ini menerapkan prinsip Separation of Concerns (SoC) dan Single Responsibility Principle (SRP). Controller bertugas sebagai adapter konteks HTTP (membaca req, memilih status code, menyusun header, mengirim respons). Service bertugas menjalankan aturan bisnis aplikasi yang murni (business logic) dan validasi data secara agnostik terhadap protokol web. Repository mengabstraksi mekanisme penyimpanan data. Pemisahan ini membuat kode mudah diuji (unit testing), mudah dimodifikasi (misal mengganti array dengan database tanpa merusak controller), dan mencegah spaghetti code.</p>
+<h3>3. Perbedaan parameter path, query, header, dan body?</h3>
+<p>Parameter path (/api/buku/:id) adalah bagian hierarki URI untuk mengidentifikasi resource spesifik secara unik. Parameter query (?q=kotlin) adalah pasangan kunci-nilai opsional setelah tanda tanya untuk memfilter, mengurutkan, atau memaginasi representasi resource. Header membawa metadata komunikasi (seperti Content-Type, Accept, Cache-Control, dan Location). Body membawa payload data entitas yang dikirim consumer (biasanya berformat JSON pada POST atau PUT) untuk dibuat atau diperbarui.</p>
+<h3>4. Mengapa JSON yang sah belum tentu memenuhi kontrak objek buku?</h3>
+<p>Format JSON hanya memvalidasi sintaksis serialisasi data (seperti ketepatan tanda kutip, kurung kurawal, koma). Suatu payload dapat berformat JSON yang 100% valid, namun melanggar kontrak domain, misalnya: nilai 'tersedia' dikirim berupa string 'true' bukannya boolean, judul dikirim berupa string kosong (spasi saja), atau menyertakan field terlarang seperti 'id' atau 'harga'. Oleh karena itu, parser JSON wajib diikuti oleh validator skema aplikasi.</p>
+<h3>5. Mengapa ID 1abc ditolak walaupun parseInt dapat menghasilkan angka?</h3>
+<p>Fungsi bawaan JavaScript parseInt('1abc', 10) melakukan pemindaian karakter dari kiri ke kanan dan berhenti saat menemukan karakter non-angka, sehingga tetap mengembalikan angka 1. Hal ini berbahaya karena consumer mengirim '1abc' namun server memproses buku ID 1 secara diam-diam. Untuk menjamin ketegasan kontrak, validasi menggunakan regex ^[1-9][0-9]*$ yang menuntut seluruh input berupa digit positif murni tanpa toleransi karakter liar.</p>
+<h3>6. Mengapa PUT parsial ditolak pada kontrak ini?</h3>
+<p>Sesuai spesifikasi RFC 9110, metode PUT memiliki semantik 'complete replacement' (penggantian representasi utuh). Kontrak API katalog menetapkan bahwa PUT wajib menyertakan kedua field 'judul' dan 'tersedia'. Jika client ingin memperbarui sebagian field saja, metode HTTP yang semestinya digunakan adalah PATCH. Penolakan PUT parsial mencegah penghapusan atribut data secara tidak sengaja.</p>
+<h3>7. Mengapa respons DELETE 204 tidak dibaca sebagai JSON?</h3>
+<p>Status HTTP 204 No Content secara definitif menyatakan bahwa operasi berhasil dan server sengaja TIDAK mengirimkan pesan payload (body kosong berukuran 0 byte). Jika client memaksakan pemanggilan response.json() pada body kosong, runtime akan melemparkan kesalahan SyntaxError (Unexpected end of JSON input). Oleh karena itu, client menggunakan response.text() untuk membaca respons kosong secara aman.</p>
+<h3>8. Perbedaan OpenAPI, Swagger UI, dan implementasi Express?</h3>
+<p>OpenAPI adalah spesifikasi formal (kontrak data deklaratif berbentuk file JSON/YAML) yang mendeskripsikan antarmuka API secara teoritis. Swagger UI adalah kakas antarmuka visual (frontend viewer) yang merender dokumen OpenAPI agar dapat dibaca dan dicoba secara interaktif oleh manusia. Sedangkan implementasi Express adalah kode program backend aktual yang mengeksekusi routing, validasi logika, dan manipulasi data di server.</p>
+<h3>9. Mengapa Example Value bukan bukti bahwa endpoint berhasil?</h3>
+<p>Example Value pada Swagger UI hanyalah contoh statis (mock documentation) yang disalin dari skrip generator OpenAPI. Tampilnya Example Value sama sekali tidak menunjukkan bahwa server Express sedang hidup atau bahwa database telah terupdate. Keberhasilan endpoint hanya dapat dibuktikan apabila tombol 'Execute' diklik dan menghasilkan respons nyata pada blok 'Server response' dengan status code dan payload aktual dari backend.</p>
+<h3>10. Bagaimana perubahan penyimpanan ke database memengaruhi kode dan pengujian?</h3>
+<p>Operasi I/O database bersifat asinkron (non-blocking), sehingga seluruh fungsi pada repository, service, dan controller harus diubah menjadi fungsi asynchronous menggunakan async/await dan mengembalikan Promise. Pada pengujian, perlu ditambahkan penanganan koneksi pool, timeout database, kegagalan transaksi (rollback), isolasi data antar-pengujian (fixtures/mocking), serta skema migrasi tabel.</p>
+<h3>11. Mengapa array tidak cocok untuk data operasional yang harus bertahan?</h3>
+<p>Array disimpan di dalam volatil memory (RAM) milik proses Node.js tunggal. Ketika proses mati, restart, crash, atau server mengalami pemadaman listrik, seluruh data yang ditambahkan akan musnah seketika. Selain itu, array in-memory tidak mendukung konkurensi multi-instance (horizontal scaling) karena setiap instance server akan memiliki memori yang terisolasi dan tidak tersinkronisasi.</p>
+<h3>12. Mengapa tombol atau dokumentasi yang disembunyikan tidak menggantikan otorisasi server?</h3>
+<p>Penyembunyian tombol atau dokumentasi hanyalah manipulasi antarmuka pengguna di sisi client (security through obscurity). Consumer atau penyerang dapat dengan mudah mengirimkan HTTP request secara langsung ke endpoint backend menggunakan cURL, Postman, atau skrip terminal tanpa melalui antarmuka web. Keamanan sejati wajib ditegakkan di sisi server melalui mekanisme autentikasi (identifikasi) dan otorisasi (pemeriksaan hak akses) pada middleware route.</p>
+<div class="page-break"></div>
+
+<h1>BAB VII: BUKTI DOKUMENTASI & TANGKAPAN LAYAR</h1>
+<p>Berikut adalah 15 tangkapan layar beresolusi tinggi yang mendokumentasikan setiap tahapan pengujian, verifikasi antarmuka web Swagger UI, dan eksekusi terminal secara nyata:</p>
+<div class="figure">
+  <img src="screenshots/01_swagger_ui_overview.png" alt="Gambar 1">
+  <div class="caption"><strong>Gambar 1:</strong> Tampilan Utama Antarmuka Swagger UI API Katalog Perpustakaan Kampus (5 Operasi Terpetakan)</div>
+</div>
+<div class="figure">
+  <img src="screenshots/02_swagger_get_id_1.png" alt="Gambar 2">
+  <div class="caption"><strong>Gambar 2:</strong> Pengujian Swagger UI: GET /api/buku/1 Menghasilkan Status 200 OK dan Detail Data Buku</div>
+</div>
+<div class="figure">
+  <img src="screenshots/03_swagger_get_id_999.png" alt="Gambar 3">
+  <div class="caption"><strong>Gambar 3:</strong> Pengujian Swagger UI: GET /api/buku/999 Menghasilkan Status 404 BOOK_NOT_FOUND</div>
+</div>
+<div class="figure">
+  <img src="screenshots/04_swagger_post_create.png" alt="Gambar 4">
+  <div class="caption"><strong>Gambar 4:</strong> Pengujian Swagger UI: POST /api/buku Menghasilkan Status 201 Created dan Header Location /api/buku/4</div>
+</div>
+<div class="figure">
+  <img src="screenshots/05_swagger_get_after_post.png" alt="Gambar 5">
+  <div class="caption"><strong>Gambar 5:</strong> Pengujian Swagger UI: GET /api/buku/4 Membuktikan Resource Baru Tersimpan di Server</div>
+</div>
+<div class="figure">
+  <img src="screenshots/06_swagger_put_update.png" alt="Gambar 6">
+  <div class="caption"><strong>Gambar 6:</strong> Pengujian Swagger UI: PUT /api/buku/4 Berhasil Memperbarui Data Buku (Status 200 OK)</div>
+</div>
+<div class="figure">
+  <img src="screenshots/07_swagger_delete.png" alt="Gambar 7">
+  <div class="caption"><strong>Gambar 7:</strong> Pengujian Swagger UI: DELETE /api/buku/4 Menghasilkan Status 204 No Content Tanpa Body</div>
+</div>
+<div class="figure">
+  <img src="screenshots/08_swagger_get_after_delete.png" alt="Gambar 8">
+  <div class="caption"><strong>Gambar 8:</strong> Pengujian Swagger UI: GET /api/buku/4 Setelah Penghapusan Menghasilkan Status 404 BOOK_NOT_FOUND</div>
+</div>
+<div class="figure">
+  <img src="screenshots/09_browser_openapi_json.png" alt="Gambar 9">
+  <div class="caption"><strong>Gambar 9:</strong> Tampilan Browser: Spesifikasi OpenAPI 3.1.0 Mentah Melalui Endpoint /openapi.json</div>
+</div>
+<div class="figure">
+  <img src="screenshots/10_browser_api_buku.png" alt="Gambar 10">
+  <div class="caption"><strong>Gambar 10:</strong> Tampilan Browser: Akses Langsung Endpoint Katalog /api/buku Menghasilkan JSON Envelop</div>
+</div>
+<div class="figure">
+  <img src="screenshots/11_terminal_verifikasi_lingkungan.png" alt="Gambar 11">
+  <div class="caption"><strong>Gambar 11:</strong> Terminal: Verifikasi Versi Node 24, npm 11, Express 5.3.0, Pemeriksaan Sintaks, & Startup Server</div>
+</div>
+<div class="figure">
+  <img src="screenshots/12_terminal_crud_testing.png" alt="Gambar 12">
+  <div class="caption"><strong>Gambar 12:</strong> Terminal: Hasil Eksekusi Pengujian Skenario CRUD Inti (U02 - U10) via client.cjs</div>
+</div>
+<div class="figure">
+  <img src="screenshots/13_terminal_validation_errors.png" alt="Gambar 13">
+  <div class="caption"><strong>Gambar 13:</strong> Terminal: Hasil Eksekusi Pengujian Validasi Ketat & Error Handling (U11 - U18)</div>
+</div>
+<div class="figure">
+  <img src="screenshots/14_terminal_restart_memory_boundary.png" alt="Gambar 14">
+  <div class="caption"><strong>Gambar 14:</strong> Terminal: Pembuktian Batas In-Memory, Koneksi Gagal Saat Server Mati (U22), & Data Reset (U23)</div>
+</div>
+<div class="figure">
+  <img src="screenshots/15_terminal_tugas1_mandiri.png" alt="Gambar 15">
+  <div class="caption"><strong>Gambar 15:</strong> Terminal: Eksekusi Rangkaian Tugas Mandiri 1 (POST 2 Buku Baru, Ubah, & Hapus Data)</div>
+</div>
+<div class="page-break"></div>
+
+<h1>BAB VIII: KESIMPULAN & REFLEKSI PRAKTIKUM</h1>
+<h2>8.1 Kesimpulan</h2>
+<p>1. Implementasi web service katalog buku perpustakaan kampus berhasil dibangun menggunakan Node.js v24.11.0 dan framework Express v5.3.0 dengan pemisahan lapisan arsitektur yang solid (routing, controller, service, repository).</p>
+<p>2. Desain endpoint mematuhi standar semantik HTTP RFC 9110 secara ketat, termasuk penggunaan status code 200 (OK), 201 (Created), 204 (No Content), 400 (Bad Request), 404 (Not Found), 413 (Payload Too Large), 415 (Unsupported Media Type), dan 500 (Internal Server Error).</p>
+<p>3. Seluruh 24 skenario pengujian matriks berhasil lulus (100% PASS), membuktikan keandalan sistem dalam menangani input valid maupun menolak input malformed secara terkontrol tanpa mengekspos stack trace.</p>
+<p>4. Spesifikasi OpenAPI 3.1.0 berhasil diintegrasikan secara lokal melalui swagger-ui-express v5.0.1, memberikan dokumentasi interaktif yang memudahkan pengujian dan kolaborasi antar-pengembang.</p>
+
+<h2>8.2 Refleksi Pembelajaran</h2>
+<p>Praktikum ini memberikan pemahaman mendalam mengenai pentingnya pemisahan tanggung jawab (Separation of Concerns). Dengan memisahkan logika controller dan service, aturan validasi buku dapat diuji dan dipelihara secara terpisah dari mekanisme pengiriman respons HTTP. Selain itu, eksperimen penghentian dan restart server memberikan bukti nyata mengenai keterbatasan penyimpanan volatil (in-memory) dan memperjelas alasan mengapa sistem produksi memerlukan database persisten serta arsitektur state management yang handal.</p>
+
+<h1>DAFTAR PUSTAKA</h1>
+<p>[1] Express.js. (2026). Express 5.x API Reference and Routing Guide. https://expressjs.com/en/5x/api/</p>
+<p>[2] Fielding, R., Nottingham, M., & Reschke, J. (2022). HTTP Semantics. RFC 9110, Internet Engineering Task Force (IETF). https://www.rfc-editor.org/rfc/rfc9110.html</p>
+<p>[3] Martin, R. C. (2018). Clean Architecture: A Craftsman's Guide to Software Structure and Design. Prentice Hall.</p>
+<p>[4] Node.js Foundation. (2026). Node.js v24 LTS Documentation. https://nodejs.org/docs/latest-v24.x/api/</p>
+<p>[5] OpenAPI Initiative. (2021). OpenAPI Specification Version 3.1.0. https://spec.openapis.org/oas/v3.1.0.html</p>
+<p>[6] Scottie1984. (2024). swagger-ui-express: Swagger UI for Node.js Express Applications. GitHub Repository. https://github.com/scottie1984/swagger-ui-express</p>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+[
+  {
+    "step": "T1_01",
+    "desc": "POST Buku 1 (Arsitektur Microservices Modern)",
+    "cmd": "node client.cjs POST /api/buku samples/tugas1-buku1.json",
+    "output": "Request: POST http://127.0.0.1:3200/api/buku\nBody request: {\"judul\":\"Arsitektur Microservices Modern\",\"tersedia\":true}\nHTTP: 201\nContent-Type: application/json; charset=utf-8\nLocation: /api/buku/3\nCache-Control: no-store\nBody respons: {\"success\":true,\"data\":{\"id\":3,\"judul\":\"Arsitektur Microservices Modern\",\"tersedia\":true}}"
+  },
+  {
+    "step": "T1_02",
+    "desc": "POST Buku 2 (Desain RESTful API Standar Industri)",
+    "cmd": "node client.cjs POST /api/buku samples/tugas1-buku2.json",
+    "output": "Request: POST http://127.0.0.1:3200/api/buku\nBody request: {\"judul\":\"Desain RESTful API Standar Industri\",\"tersedia\":false}\nHTTP: 201\nContent-Type: application/json; charset=utf-8\nLocation: /api/buku/4\nCache-Control: no-store\nBody respons: {\"success\":true,\"data\":{\"id\":4,\"judul\":\"Desain RESTful API Standar Industri\",\"tersedia\":false}}"
+  },
+  {
+    "step": "T1_03",
+    "desc": "GET seluruh katalog sesudah penambahan 2 buku",
+    "cmd": "node client.cjs GET /api/buku",
+    "output": "Request: GET http://127.0.0.1:3200/api/buku\nBody request: (kosong)\nHTTP: 200\nContent-Type: application/json; charset=utf-8\nLocation: -\nCache-Control: no-store\nBody respons: {\"success\":true,\"data\":[{\"id\":1,\"judul\":\"Dasar Pemrograman Kotlin\",\"tersedia\":true},{\"id\":2,\"judul\":\"Dasar Web Service\",\"tersedia\":false},{\"id\":3,\"judul\":\"Arsitektur Microservices Modern\",\"tersedia\":true},{\"id\":4,\"judul\":\"Desain RESTful API Standar Industri\",\"tersedia\":false}]}"
+  },
+  {
+    "step": "T1_04",
+    "desc": "GET detail Buku ID 3",
+    "cmd": "node client.cjs GET /api/buku/3",
+    "output": "Request: GET http://127.0.0.1:3200/api/buku/3\nBody request: (kosong)\nHTTP: 200\nContent-Type: application/json; charset=utf-8\nLocation: -\nCache-Control: no-store\nBody respons: {\"success\":true,\"data\":{\"id\":3,\"judul\":\"Arsitektur Microservices Modern\",\"tersedia\":true}}"
+  },
+  {
+    "step": "T1_05",
+    "desc": "GET detail Buku ID 4",
+    "cmd": "node client.cjs GET /api/buku/4",
+    "output": "Request: GET http://127.0.0.1:3200/api/buku/4\nBody request: (kosong)\nHTTP: 200\nContent-Type: application/json; charset=utf-8\nLocation: -\nCache-Control: no-store\nBody respons: {\"success\":true,\"data\":{\"id\":4,\"judul\":\"Desain RESTful API Standar Industri\",\"tersedia\":false}}"
+  },
+  {
+    "step": "T1_06",
+    "desc": "PUT Buku ID 3 mengubah judul dan status ketersediaan",
+    "cmd": "node client.cjs PUT /api/buku/3 samples/tugas1-buku-ubah.json",
+    "output": "Request: PUT http://127.0.0.1:3200/api/buku/3\nBody request: {\"judul\":\"Arsitektur Microservices Modern (Edisi 2)\",\"tersedia\":false}\nHTTP: 200\nContent-Type: application/json; charset=utf-8\nLocation: -\nCache-Control: no-store\nBody respons: {\"success\":true,\"data\":{\"id\":3,\"judul\":\"Arsitektur Microservices Modern (Edisi 2)\",\"tersedia\":false}}"
+  },
+  {
+    "step": "T1_07",
+    "desc": "GET detail Buku ID 3 setelah pembaruan",
+    "cmd": "node client.cjs GET /api/buku/3",
+    "output": "Request: GET http://127.0.0.1:3200/api/buku/3\nBody request: (kosong)\nHTTP: 200\nContent-Type: application/json; charset=utf-8\nLocation: -\nCache-Control: no-store\nBody respons: {\"success\":true,\"data\":{\"id\":3,\"judul\":\"Arsitektur Microservices Modern (Edisi 2)\",\"tersedia\":false}}"
+  },
+  {
+    "step": "T1_08",
+    "desc": "DELETE Buku ID 4",
+    "cmd": "node client.cjs DELETE /api/buku/4",
+    "output": "Request: DELETE http://127.0.0.1:3200/api/buku/4\nBody request: (kosong)\nHTTP: 204\nContent-Type: null\nLocation: -\nCache-Control: no-store\nBody respons: (kosong)"
+  },
+  {
+    "step": "T1_09",
+    "desc": "GET detail Buku ID 4 setelah penghapusan (harus 404)",
+    "cmd": "node client.cjs GET /api/buku/4",
+    "output": "Request: GET http://127.0.0.1:3200/api/buku/4\nBody request: (kosong)\nHTTP: 404\nContent-Type: application/json; charset=utf-8\nLocation: -\nCache-Control: no-store\nBody respons: {\"success\":false,\"error\":{\"code\":\"BOOK_NOT_FOUND\",\"message\":\"Buku tidak ditemukan.\"}}"
+  },
+  {
+    "step": "T1_10",
+    "desc": "GET seluruh katalog akhir setelah penghapusan",
+    "cmd": "node client.cjs GET /api/buku",
+    "output": "Request: GET http://127.0.0.1:3200/api/buku\nBody request: (kosong)\nHTTP: 200\nContent-Type: application/json; charset=utf-8\nLocation: -\nCache-Control: no-store\nBody respons: {\"success\":true,\"data\":[{\"id\":1,\"judul\":\"Dasar Pemrograman Kotlin\",\"tersedia\":true},{\"id\":2,\"judul\":\"Dasar Web Service\",\"tersedia\":false},{\"id\":3,\"judul\":\"Arsitektur Microservices Modern (Edisi 2)\",\"tersedia\":false}]}"
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "name": "wse_praktikum_05_240104040147_muhammad-daffa-khairi-addin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.cjs",
+    "docs": "node scripts/generate-openapi.cjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "5.3.0",
+    "swagger-ui-express": "5.0.1"
+  }
+}
